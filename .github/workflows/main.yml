@@ -1,6 +1,9 @@
 on:
   pull_request:
     types: [opened, reopened, edited]
+  push:
+    branches:
+      - 'dev/**'
     
 name : pullrequesttrigger
 
