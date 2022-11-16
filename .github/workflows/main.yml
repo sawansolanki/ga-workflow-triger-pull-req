@@ -1,0 +1,15 @@
+on:
+  pull_request:
+    types: [opened, reopened]
+    
+name : pullrequesttrigger
+
+run-name : ubuntu:latest
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build script
+        run: ./date.sh
+        shell: bash
