@@ -31,3 +31,7 @@ jobs:
           issue: ${{ steps.pr.outputs.issue }}
           message-path: 
             report.md
+      #trying to download report.md as artifact to send it to main branch
+      - uses: actions/download-artifact@v3
+        with:
+          name: report.md
