@@ -1,6 +1,9 @@
 on:
   pull_request:
     types: [opened, reopened, edited]
+  push:
+    branches:
+      - 'dev1'
     
 name : pullrequesttrigger
 
@@ -14,3 +17,17 @@ jobs:
       - run: |
           chmod a+x date.sh
           ./date.sh >> report.md
+          cat report.md
+          
+      - id: pr
+        run: |
+          issue=$(gh pr list --search "${{ github.sha }}" --state open --json number --jq ".[0].number")
+          echo "issue=$issue" >>$GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          issue: ${{ steps.pr.outputs.issue }}
+          message-path: 
+            report.md
