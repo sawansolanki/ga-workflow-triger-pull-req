@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
     
 name : pullrequesttrigger
 
@@ -10,6 +10,7 @@ jobs:
   example-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Run build script
-        run: ./date.sh
-        shell: bash
+      - uses: actions/checkout@v3
+      - run: |
+          chmod a+x date.sh
+          ./date.sh >> report.md
